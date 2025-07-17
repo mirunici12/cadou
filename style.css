@@ -23,7 +23,8 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 500px; /* Asigură o înălțime minimă suficientă */
+    /* Am crescut min-height pentru a oferi mai mult spațiu consistent */
+    min-height: 550px; /* Ajustează această valoare pentru a se potrivi cu înălțimea dorită */
     position: relative; /* Necesar pentru poziționarea absolută a copiilor */
     overflow: hidden; /* Crucial pentru a tăia conținutul care depășește */
 }
@@ -35,23 +36,26 @@ body {
     align-items: center;
     width: 100%;
     transition: opacity 1s ease-out;
+    /* Asigură că main-content ocupă toată înălțimea disponibilă din container */
+    height: 100%;
+    justify-content: center; /* Centrează conținutul pe verticală */
 }
 
 /* Stiluri pentru celelalte secțiuni, cu poziționare absolută pentru tranziții fluide */
 #finalImageContainer,
 #imageGallery,
-#quizContainer { /* Adaugat quizContainer aici */
+#quizContainer {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
-    width: 100%;
+    height: 100%; /* Ocupă toată înălțimea containerului părinte */
+    width: 100%; /* Ocupă toată lățimea containerului părinte */
     padding: inherit; /* Moștenește padding-ul de la .container */
     box-sizing: border-box; /* Include padding în lățime/înălțime */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: center; /* Centrează conținutul pe verticală */
     transition: opacity 1s ease-in-out; /* Tranziție pentru apariție/dispariție */
 }
 
@@ -138,8 +142,9 @@ h1 {
 
 .final-image {
     max-width: 100%;
+    /* Ajustează max-height pentru a nu depăși prea mult spațiul */
+    max-height: 60%; /* Creștem puțin pentru a permite imaginii să fie mai mare */
     height: auto;
-    max-height: 50%; /* Limitează înălțimea imaginii finale */
     border-radius: 10px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     object-fit: contain; /* Asigură că imaginea se încadrează complet */
@@ -171,7 +176,9 @@ h1 {
 .gallery-inner {
     position: relative;
     width: 100%;
-    height: 100%;
+    /* Setează o înălțime fixă sau procentuală pentru galerie,
+       astfel încât să nu depășească containerul */
+    height: 70%; /* Ajustează această valoare după cum e necesar */
     display: flex;
     border-radius: 10px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
@@ -183,7 +190,7 @@ h1 {
 /* Noul wrapper pentru fiecare imagine din galerie. */
 .gallery-item-wrapper {
     min-width: 100%;
-    height: 100%;
+    height: 100%; /* Ocupă toată înălțimea din gallery-inner */
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -196,7 +203,7 @@ h1 {
 /* Imaginea reală din interiorul wrapper-ului */
 .gallery-item-wrapper img {
     max-width: 100%;
-    max-height: 100%;
+    max-height: 100%; /* Important: asigurați-vă că imaginile nu depășesc wrapper-ul */
     object-fit: contain;
     display: block;
 }
@@ -251,6 +258,9 @@ h1 {
     width: 100%;
     max-width: 300px;
     align-items: flex-start;
+    /* Ajustează înălțimea maximă a formularului pentru a se încadra în chenar */
+    max-height: 70%; /* Sau o valoare fixă în px, dacă preferi */
+    overflow-y: auto; /* Adaugă scroll dacă opțiunile sunt prea multe */
 }
 
 #quizForm label {
@@ -343,7 +353,7 @@ h1 {
 @media (max-width: 480px) {
     .container {
         padding: 20px;
-        min-height: 400px;
+        min-height: 500px; /* Ajustează min-height pentru mobil, dacă e necesar */
     }
     #finalImageContainer,
     #imageGallery,
@@ -354,7 +364,7 @@ h1 {
         font-size: 1.3em;
     }
     .final-image {
-        max-height: 45%;
+        max-height: 50%; /* Ajustează pentru mobil */
     }
     h1 {
         font-size: 2em; /* Dimensiunea H1 pe mobil */
