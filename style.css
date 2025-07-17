@@ -1,0 +1,402 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #E0FFFF; /* Un fundal deschis, un albastru foarte pal */
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fontul general al paginii */
+    color: #333;
+    text-align: center;
+    overflow: hidden; /* Previne scroll-ul accidental al paginii */
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 450px;
+    width: 90%; /* Responsive width */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px; /* Asigură o înălțime minimă suficientă */
+    position: relative; /* Necesar pentru poziționarea absolută a copiilor */
+    overflow: hidden; /* Crucial pentru a tăia conținutul care depășește */
+}
+
+/* Partea de "Suflă în lumânări" - INIȚIALĂ */
+#main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    transition: opacity 1s ease-out;
+}
+
+/* Stiluri pentru celelalte secțiuni, cu poziționare absolută pentru tranziții fluide */
+#finalImageContainer,
+#imageGallery,
+#quizContainer { /* Adaugat quizContainer aici */
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding: inherit; /* Moștenește padding-ul de la .container */
+    box-sizing: border-box; /* Include padding în lățime/înălțime */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 1s ease-in-out; /* Tranziție pentru apariție/dispariție */
+}
+
+h1 {
+    color: #1E90FF; /* Un albastru vibrant */
+    margin-bottom: 10px;
+    font-size: 2.5em; /* Scalabil cu unități em */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+    font-family: 'Permanent Marker', cursive; /* Noul font pentru H1 */
+}
+
+.instruction {
+    font-size: 1.3em;
+    color: #555;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.flork-cake-container {
+    position: relative;
+    width: 100%;
+    max-width: 350px; /* Limită dimensiunea imaginii */
+    margin: 0 auto 30px;
+    display: block;
+}
+
+.flork-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.flame-overlay {
+    position: absolute;
+    width: 15px;
+    height: 25px;
+    background: radial-gradient(circle at 50% 0, #fff700 0%, #ffcc00 50%, #ff9900 100%);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    box-shadow: 0 0 10px rgba(255, 200, 0, 0.8), 0 0 25px rgba(255, 200, 0, 0.5);
+    animation: flicker 0.3s infinite alternate;
+
+    top: 60%;
+    left: 28%;
+    transform: translate(-50%, -50%);
+}
+
+.flame-overlay.blown-out {
+    display: none; /* Stinge flacăra */
+}
+
+#blowButton {
+    background-color: #4682B4; /* Un albastru mediu */
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 25px;
+    box-shadow: 0 4px 12px rgba(70, 130, 180, 0.4);
+    transition: background-color 5s linear, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+#blowButton:hover {
+    background-color: #5F9EA0; /* O nuanță mai deschisă la hover */
+    transform: translateY(-2px);
+}
+
+#blowButton:disabled {
+    background-color: #0000CD; /* Albastru închis când e dezactivat */
+    box-shadow: none;
+    cursor: default;
+}
+
+.final-message-text {
+    font-size: 1.8em;
+    color: #1E90FF;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    text-align: center;
+    line-height: 1.3;
+}
+
+.final-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 50%; /* Limitează înălțimea imaginii finale */
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    object-fit: contain; /* Asigură că imaginea se încadrează complet */
+}
+
+.continue-button, .gift-button {
+    background-color: #4682B4;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(70, 130, 180, 0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+}
+
+.continue-button:hover, .gift-button:hover {
+    background-color: #5F9EA0;
+    transform: translateY(-2px);
+}
+
+/* ------------------------------------------- */
+/* AJUSTĂRI PENTRU GALERIA DE IMAGINI (SLIDESHOW) */
+/* ------------------------------------------- */
+
+.gallery-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: transform 0.5s ease-in-out;
+    padding: 0;
+    margin: 0;
+}
+
+/* Noul wrapper pentru fiecare imagine din galerie. */
+.gallery-item-wrapper {
+    min-width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+/* Imaginea reală din interiorul wrapper-ului */
+.gallery-item-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.gallery-nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+}
+
+.gallery-nav-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.prev-button {
+    left: 10px;
+}
+
+.next-button {
+    right: 10px;
+}
+
+/* Stiluri pentru formularul de Quiz */
+#quizContainer {
+    gap: 15px;
+}
+
+.quiz-question {
+    font-size: 1.7em;
+    color: #1E90FF;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#quizForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+    align-items: flex-start;
+}
+
+#quizForm label {
+    display: flex;
+    align-items: center;
+    font-size: 0.90em; /* Aici am făcut fontul mai mic */
+    cursor: pointer;
+    padding: 8px 0;
+    width: 100%;
+    transition: color 0.2s ease;
+    text-align: left; /* Asigură că textul e aliniat la stânga în label */
+}
+
+#quizForm label:hover {
+    color: #4682B4;
+}
+
+#quizForm input[type="radio"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+    cursor: pointer;
+    flex-shrink: 0; /* Previne micșorarea butonului radio */
+}
+
+#submitQuiz {
+    background-color: #4682B4; /* Culoare buton Submit */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+    width: 100%;
+}
+
+#submitQuiz:hover {
+    background-color: #125c98; /* Culoare la hover pentru buton Submit */
+    transform: translateY(-2px);
+}
+
+/* Noul stil pentru mesajul final */
+#quizResult {
+    margin-top: 20px;
+    font-family: 'Permanent Marker', cursive; /* Noul font pentru mesajul final */
+    font-size: 2.5em; /* Același font-size ca și h1 */
+    color: #1E90FF; /* Același albastru vibrant ca și h1 */
+    font-weight: normal; /* Fontul 'Permanent Marker' e mai bine fără bold */
+    text-align: center;
+    line-height: 1.3;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05); /* Același text-shadow ca și h1 */
+}
+
+/* Stiluri pentru GIF-ul final - DIMENSIUNE MULT MAI MICĂ */
+#finalGifContainer {
+    margin-top: 25px; /* Spațiu deasupra GIF-ului */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.final-gif-image {
+    max-width: 150px; /* Redus drastic dimensiunea maximă a GIF-ului */
+    max-height: 150px; /* Redus drastic înălțimea maximă a GIF-ului */
+    width: auto; /* Permite redimensionarea proporțională */
+    height: auto; /* Permite redimensionarea proporțională */
+    object-fit: contain; /* Asigură că imaginea se încadrează complet */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Clasa pentru ascunderea elementelor */
+.hidden {
+    display: none !important;
+}
+
+/* Animația flăcării */
+@keyframes flicker {
+    0% { transform: translate(-50%, -50%) scale(1) rotate(-1deg); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(1.05) rotate(1deg); opacity: 0.95; }
+    100% { transform: translate(-50%, -50%) scale(1) rotate(-1deg); opacity: 1; }
+}
+
+/* Media query pentru ecrane mai mici de 480px (telefoane) */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        min-height: 400px;
+    }
+    #finalImageContainer,
+    #imageGallery,
+    #quizContainer {
+        padding: 20px;
+    }
+    .final-message-text {
+        font-size: 1.3em;
+    }
+    .final-image {
+        max-height: 45%;
+    }
+    h1 {
+        font-size: 2em; /* Dimensiunea H1 pe mobil */
+    }
+    .instruction {
+        font-size: 1.1em;
+    }
+    #blowButton {
+        padding: 12px 25px;
+        font-size: 1.1em;
+    }
+    .continue-button, .gift-button {
+        font-size: 1em;
+        padding: 10px 20px;
+    }
+    .gallery-nav-button {
+        width: 30px;
+        height: 30px;
+        font-size: 1.2em;
+    }
+    .prev-button {
+        left: 5px;
+    }
+    .next-button {
+        right: 5px;
+    }
+
+    .quiz-question {
+        font-size: 1.5em;
+    }
+    #quizForm label {
+        font-size: 1em;
+    }
+    #submitQuiz {
+        font-size: 1em;
+        padding: 10px 20px;
+    }
+    #quizResult {
+        font-size: 2em; /* Ajustează dimensiunea pentru mobil */
+    }
+    .final-gif-image {
+        max-width: 50px; /* Și mai mic pe mobil */
+        max-height: 50px;
+    }
+}

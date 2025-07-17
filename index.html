@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Multi Ani, Flavius!</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div id="main-content">
+            <h1>La muuulti ani, Flavius!</h1>
+            <p class="instruction">Sufla in lumanare ❤</p>
+
+            <div class="flork-cake-container">
+                <img src="cake.jpg" alt="Flork cu tort" class="flork-image">
+                <div class="flame-overlay" id="candleFlame"></div>
+            </div>
+
+            <button id="blowButton">😮‍💨</button>
+        </div>
+
+        <div id="finalImageContainer" class="hidden">
+            <h2 class="final-message-text">La 24 de ani esti chiar si mai sexy</h2>
+            <img src="heart.jpg" alt="Mesaj special" class="final-image">
+            <button id="continueButton" class="continue-button">Vezi ce urmeaza</button>
+        </div>
+
+        <div id="imageGallery" class="hidden">
+            <div class="gallery-inner">
+                </div>
+            <button class="gallery-nav-button prev-button">&lt;</button>
+            <button class="gallery-nav-button next-button">&gt;</button>
+            <button id="giftButton" class="hidden gift-button">Si cadoul unde e?</button>
+        </div>
+
+        <div id="quizContainer" class="hidden">
+            <h2 class="quiz-question">M-am gandit sa te las sa alegi</h2>
+            <form id="quizForm">
+                <label>
+                    <input type="radio" name="spiritAnimal" value="Stepsis blocata in masina de spalat"> Stepsis blocata in masina de spalat 🫣
+                </label>
+                <label>
+                    <input type="radio" name="spiritAnimal" value="Secretara cere o marire...de salariu"> Secretara cere o marire...de salariu 👠
+                </label>
+                <label>
+                    <input type="radio" name="spiritAnimal" value="Doctorita ofera tratament special acasa"> Doctorita ofera tratament special acasa 🩺🤒
+                </label>
+                <label>
+                    <input type="radio" name="spiritAnimal" value="Profesoara iti ofera o lectie de neuitat"> Profesoara iti ofera o lectie de neuitat 🤓
+                </label>
+                <label>
+                    <input type="radio" name="spiritAnimal" value="Politista te perchezitioneaza...si se bucura sa prelungeasca procedura"> Politista te perchezitioneaza...si se bucura sa prelungeasca procedura 🚨🥵
+                </label>
+                <button type="submit" id="submitQuiz">De abia astept</button>
+            </form>
+            <p id="quizResult" class="hidden"></p>
+            <div id="finalGifContainer" class="hidden">
+                <img id="finalGif" src="pupi.gif" alt="Felicitare" class="final-gif-image">
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
